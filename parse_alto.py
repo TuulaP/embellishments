@@ -1,8 +1,10 @@
 from xml.etree import ElementTree as ET
 
+#import sys
 from c19_paths import *
 
-<<<<<<< HEAD
+
+#<<<<<<< HEAD
 def splitjp2zip(fn):
   id,vol,extent = fn.split("_",3)[:2]
   return (id, vol, extent[:-3].split("-"))
@@ -13,10 +15,10 @@ def extent(id, vol = "0"):
     return a[0].split("_",3)[2][:-3].split("-")
   for _, fnvol, extent in map(splitjp2zip, a):
     if fnvol == vol:
-      return extent 
+      return extent
 
-=======
->>>>>>> d03dcbc9cd6b051a2d3d79a5317c7aaaed83ddde
+#=======
+#>>>>>>> d03dcbc9cd6b051a2d3d79a5317c7aaaed83ddde
 def get_illustration_coords(doc, component="PrintSpace"):
   page = doc.find("Layout/Page")
   illustrations = doc.findall('Layout/Page/{0}/ComposedBlock[@TYPE="Illustration"]/GraphicalElement'.format(component))
@@ -38,6 +40,7 @@ def increase_size(shape, factor, mapping, page):
   x = int(ox * mapping[0])
   h = int(oh * mapping[1])
   y = int(oy * mapping[1])
+
   dw = (float(w) * factor) - w
   dh = (float(h) * factor) - h
   dx = dw / 2.0
@@ -64,7 +67,7 @@ def get_attrib_rect(enode):
 
 def characterise(doc):
   page = doc.find("Layout/Page")
-  
+
   # <Page ID="P27" PHYSICAL_IMG_NR="27" HEIGHT="2579" WIDTH="1569" POSITION="Right" ACCURACY="53.41">
   #			<TopMargin ID="P27_TM00001" HPOS="0" VPOS="0" WIDTH="1568" HEIGHT="320"/>
   #			<LeftMargin ID="P27_LM00001" HPOS="0" VPOS="320" WIDTH="38" HEIGHT="2009"/>
@@ -76,7 +79,7 @@ def characterise(doc):
   rightmargin = page.find("RightMargin")
   page_left_margin = get_attrib_rect(leftmargin)
   page_right_margin = get_attrib_rect(rightmargin)
-  
+
   printblock = page.find("PrintSpace")
   printblock_shape = get_attrib_rect(printblock)
 
@@ -86,4 +89,3 @@ def characterise(doc):
           'rightmargin': page_right_margin,
           'printspace': printblock_space,
           'images':images}
-  

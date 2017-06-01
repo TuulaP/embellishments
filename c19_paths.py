@@ -1,8 +1,10 @@
+import sys
+
 import os
 import cv2
-import cv2.cv as cv
 
-nasmount = "/mnt/nas/"
+#Note! - This location needs to be updated!
+nasmount = os.environ['PICZIPLOC'] # "/mnt/nas"
 
 JP2ZIPS = os.listdir(os.path.join(nasmount, "JP2"))
 
@@ -16,7 +18,7 @@ def extent(id, vol = "0"):
     return a[0].split("_",3)[2][:-3].split("-")
   for _, fnvol, extent in map(splitjp2zip, a):
     if fnvol == vol:
-      return extent 
+      return extent
 
 def photofn(fn):
   fn_name = fn.strip().split("/")[-1]
